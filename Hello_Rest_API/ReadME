@@ -1,0 +1,48 @@
+You can write a unit test using JUnit 5 & Spring Boot's @WebMvcTest annotation:
+
+============
+@WebMvcTest(HelloController.class)
+class HelloControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Test
+    void shouldReturnHelloMessage() throws Exception {
+        mockMvc.perform(get("/api/hello"))
+               .andExpect(status().isOk())
+               .andExpect(content().string("Hello, World!"));
+    }
+}
+==================================================================
+Explanation
+------------
+@WebMvcTest(HelloController.class): Loads only the controller, ignoring service components.
+MockMvc: Simulates HTTP requests without starting the server.
+.perform(get("/first_project/hello")): Sends a GET request.
+.andExpect(status().isOk()): Verifies HTTP 200 status.
+.andExpect(content().string("Hello")): Checks response content.
+
+Mocking Services:
+-----------------
+If your controller depends on a service (HelloService), mock it using Mockito:
+
+@MockBean
+private HelloService helloService;
+
+
+Then define behavior in your test:
+Mockito.when(helloService.getGreeting()).thenReturn("Hello, Mock!");
+
+
+Running step:
+-------------
+
+If the issue persists, check if spring-boot-starter-test is included in your build.gradle or pom.xml.
+Run
+     >mvn clean test (Maven)
+     or
+     >./gradlew  test (Gradle)
+
+      to verify your tests.
+
