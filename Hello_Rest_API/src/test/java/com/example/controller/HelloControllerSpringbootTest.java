@@ -20,4 +20,13 @@ public class HelloControllerSpringbootTest {
         ResponseEntity<String> response = restTemplate.postForEntity("/first_project/hello?name=" + name, null, String.class);
         assertThat(response.getBody()).isEqualTo("Hello" + name);
     }
+
+    @Test
+    public void tesGettHello() {
+        //String url = "http://localhost:8080/first_project/hello"; --url should not be full
+        String url = "/first_project/hello";
+        // Making a GET request
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        assertThat(response.getBody()).isEqualTo("Hello");
+    }
 }
