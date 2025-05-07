@@ -17,7 +17,8 @@ public class HelloControllerSpringbootTest {
     @Test
     public void testHello() {
         String name = "World";
-        ResponseEntity<String> response = restTemplate.postForEntity("/first_project/hello?name=" + name, null, String.class);
+        ResponseEntity<String> response
+                = restTemplate.postForEntity("/first_project/hello?name=" + name,null, String.class);
         assertThat(response.getBody()).isEqualTo("Hello" + name);
     }
 
